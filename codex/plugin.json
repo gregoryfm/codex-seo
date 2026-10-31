@@ -1,0 +1,7 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "codex-seo",
+  "version": "2.5.0",
+  "description": "SEO audits, content analysis, structured data, local search, and optional provider workflows for Codex.",
+  "license": "MIT"
+}

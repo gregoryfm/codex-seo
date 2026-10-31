@@ -1,0 +1,22 @@
+[mcp_servers.dataforseo]
+command = "npx"
+args = ["-y", "dataforseo-mcp-server@2.8.10"]
+env_vars = ["DATAFORSEO_USERNAME", "DATAFORSEO_PASSWORD", "FIELD_CONFIG_PATH"]
+
+[mcp_servers.dataforseo.env]
+ENABLED_MODULES = "SERP,KEYWORDS_DATA,ONPAGE,DATAFORSEO_LABS,BACKLINKS,DOMAIN_ANALYTICS,BUSINESS_DATA,CONTENT_ANALYSIS,AI_OPTIMIZATION"
+
+[mcp_servers.firecrawl]
+command = "npx"
+args = ["-y", "firecrawl-mcp@3.11.0"]
+env_vars = ["FIRECRAWL_API_KEY"]
+
+[mcp_servers.nanobanana]
+command = "npx"
+args = ["-y", "@ycse/nanobanana-mcp@1.1.1"]
+env_vars = ["GOOGLE_AI_API_KEY", "NANOBANANA_MODEL"]
+
+[mcp_servers.ahrefs]
+command = "npx"
+args = ["--yes", "--package=@ahrefs/mcp@0.0.11", "mcp"]
+env_vars = ["AHREFS_API_TOKEN"]

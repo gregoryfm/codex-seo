@@ -1,0 +1,120 @@
+{
+  "date": "2026-10-31",
+  "upstream_revision": "6be93f45064ffbadced572b5d5c95f55fd263af0",
+  "upstream_version": "2.5.0",
+  "unit_tests": {
+    "passed": 22,
+    "command": "python3 -m unittest discover -s codex/tests -v"
+  },
+  "skill_creator_validation": {
+    "passed": 33
+  },
+  "discovery": {
+    "client": "codex-seo-smoke/0.165.0 (Mac OS 27.0.1; arm64) dumb (codex-seo-smoke; 1.0.0)",
+    "skills": [
+      "codex-seo:seo",
+      "codex-seo:seo-agentic",
+      "codex-seo:seo-ahrefs",
+      "codex-seo:seo-audit",
+      "codex-seo:seo-backlinks",
+      "codex-seo:seo-bing",
+      "codex-seo:seo-cluster",
+      "codex-seo:seo-competitor-pages",
+      "codex-seo:seo-content",
+      "codex-seo:seo-content-brief",
+      "codex-seo:seo-dataforseo",
+      "codex-seo:seo-drift",
+      "codex-seo:seo-ecommerce",
+      "codex-seo:seo-firecrawl",
+      "codex-seo:seo-flow",
+      "codex-seo:seo-geo",
+      "codex-seo:seo-google",
+      "codex-seo:seo-hreflang",
+      "codex-seo:seo-image-gen",
+      "codex-seo:seo-images",
+      "codex-seo:seo-local",
+      "codex-seo:seo-maps",
+      "codex-seo:seo-matomo",
+      "codex-seo:seo-page",
+      "codex-seo:seo-plan",
+      "codex-seo:seo-profound",
+      "codex-seo:seo-programmatic",
+      "codex-seo:seo-schema",
+      "codex-seo:seo-seranking",
+      "codex-seo:seo-sitemap",
+      "codex-seo:seo-sxo",
+      "codex-seo:seo-technical",
+      "codex-seo:seo-unlighthouse"
+    ],
+    "skill_count": 33,
+    "skill_errors": [],
+    "linked_agents": 20,
+    "plugin_marketplace_discovered": true,
+    "package_copy_outside_upstream_checkout": true,
+    "model_calls": 0
+  },
+  "runtime_setup": {
+    "python": "3.12",
+    "core_dependencies": "passed",
+    "chromium_installation": "passed",
+    "test_data_dir": "isolated temporary directory"
+  },
+  "forward_cases": {
+    "schema_placeholder": "rejected",
+    "flow_local_draft": "completed with retained source credit",
+    "dataforseo_missing_tools": "unavailable without fabricated metrics",
+    "profound_missing_tools": "unavailable without fabricated metrics"
+  },
+  "not_verified": [
+    "Authenticated and paid provider calls",
+    "Actual native-role model execution",
+    "Hosted CI",
+    "Marketplace publication",
+    "Cross-model design and trail review"
+  ],
+  "runtime_checks": {
+    "doctor": {
+      "browser_ready": true,
+      "mode": "override",
+      "plugin_version": "2.5.0",
+      "python_version": "3.12",
+      "ready": true,
+      "reasons": []
+    },
+    "public_target": "https://example.com",
+    "parse_html": {
+      "result": "passed",
+      "title": "Example Domain"
+    },
+    "raw_render": {
+      "result": "passed",
+      "http_status": 200
+    },
+    "chromium_render": {
+      "status_code": 200,
+      "render_engine": "playwright-chromium",
+      "accessibility_error": null,
+      "accessibility_partial": false
+    },
+    "screenshots": {
+      "result": "passed",
+      "viewports": [
+        "desktop",
+        "laptop",
+        "tablet",
+        "mobile"
+      ],
+      "mobile_visual_inspection": "passed"
+    }
+  },
+  "source_preservation": {
+    "tracked_original_files_unchanged": 467,
+    "source_resources_mapped": 277,
+    "generated_files": 270
+  },
+  "review_findings": {
+    "correctness": "four findings corrected and verified",
+    "adversarial": "untracked input and source symlink findings corrected with regression tests",
+    "comments": "four unnecessary or inaccurate comments removed"
+  }
+}
