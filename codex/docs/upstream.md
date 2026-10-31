@@ -36,3 +36,5 @@ The converter records source revision, file hashes, duplicate mirrors, and outpu
 The Banana extension skill is the canonical `seo-image-gen` procedure. It includes the local generation helpers absent from the core mirror. Both source files remain recorded. The DataForSEO and duplicate agent mirrors produce one installed procedure per name.
 
 For FLOW updates, use the upstream project's reviewed source update procedure, then regenerate the Codex package. `sync_flow.py` is disabled in installed packages. For `seo-agentic refresh`, return dated findings to the user. A maintainer can apply them to the upstream source and regenerate. Do not edit generated resources or the plugin cache during an audit.
+
+After regenerating agent procedures, rerun `scripts/install.py` with `--apply` for each installed scope to refresh unchanged managed copies. Preview first. The installer records copied file hashes and preserves agent files edited since the last install.

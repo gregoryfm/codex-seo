@@ -25,6 +25,14 @@ The domain model is a source inventory with source path, target path, source has
 - Structured data uses an explicit validator instead of an automatic hook. The Codex adapter supports JSON files and neutral JSON results. The copied validator adapts multi-type JSON-LD without changing the original hook.
 - The Banana extension is canonical where its core mirror differs. It includes local generation and cost-tracking helpers. Both originals remain in the source map.
 
+## Native agent installation repair
+
+User-scope testing on Codex CLI 0.165.0 exposed a loader difference. Discovery follows agent-file symlinks and advertises their role names. Dispatch calls `read_sensitive_file_to_string`, which opens the final path with `O_NOFOLLOW` and rejects those symlinks. The first three native launches therefore failed before any agent procedure ran.
+
+The installer keeps skill symlinks and installs regular agent TOML files. A local ownership receipt records copied-file hashes so repeat runs can refresh unchanged managed copies and preserve user edits. Existing same-source agent symlinks migrate to regular copies. The discovery smoke check also tests the installed files with the loader's no-follow open rule.
+
+The source evidence is Codex tag `rust-v0.165.0`, commit `360319d8dee62d87e2d59fc0c21805d79519cfed`, in `codex-rs/core/src/agent/role.rs` and `codex-rs/exec-server/src/regular_file.rs`. Actual model execution is verified separately from advertised role names.
+
 ## Verification boundaries
 
 The local unit suite tests installer conflicts, repeat runs, uninstall ownership, dispatch restrictions, missing-runtime behaviour, schema output, source coverage, and reproducible conversion. `scripts/smoke_codex.py` copies the package outside the source checkout, installs it in a temporary project, and asks the real Codex app-server to discover skills and the local plugin marketplace. It makes no model calls.

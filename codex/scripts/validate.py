@@ -18,6 +18,13 @@ SOURCE = PACKAGE.parent
 def validate() -> list[str]:
     issues = []
     mapping = json.loads((PACKAGE / 'docs/source-map.json').read_text())
+    ignored = subprocess.run(
+        ['git', 'check-ignore', '--no-index', '--stdin', '-z'], cwd=SOURCE,
+        input=''.join('codex/' + path + '\0' for path in mapping['generated_files']),
+        capture_output=True, text=True, check=False,
+    )
+    if ignored.stdout:
+        issues.append('Generated resources excluded by Git ignore rules: ' + ', '.join(ignored.stdout.rstrip('\0').split('\0')))
     files = subprocess.run(['git', 'ls-files', '-z'], cwd=SOURCE, check=True, capture_output=True).stdout.decode().split('\0')
     inventory = {p for p in files if p and not p.startswith('codex/')}
     if inventory != set(mapping['upstream_files']):

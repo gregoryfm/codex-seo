@@ -8,6 +8,7 @@ import os
 from pathlib import Path
 import queue
 import shutil
+import stat
 import subprocess
 import sys
 import tempfile
@@ -33,6 +34,26 @@ def main() -> int:
         (base / 'codex home').mkdir()
         installed = subprocess.run([sys.executable, str(package / 'scripts/install.py'), '--project', str(project), '--apply'], capture_output=True, text=True, env=env, check=True)
         links = json.loads(installed.stdout)['changes']
+        agent_changes = [change for change in links if change['kind'] == 'agent']
+        expected_agents = {str(path) for path in (package / 'agents').glob('*.toml')}
+        actual_agents = {change['source'] for change in agent_changes}
+        if actual_agents != expected_agents:
+            raise RuntimeError({'missing_agents': sorted(expected_agents - actual_agents), 'extra_agents': sorted(actual_agents - expected_agents)})
+        nofollow = getattr(os, 'O_NOFOLLOW', 0)
+        for change in agent_changes:
+            source = Path(change['source'])
+            destination = Path(change['destination'])
+            if destination.is_symlink() or not stat.S_ISREG(destination.lstat().st_mode):
+                raise RuntimeError(f'Installed agent is not a regular file: {destination}')
+            descriptor = os.open(destination, os.O_RDONLY | nofollow)
+            try:
+                if not stat.S_ISREG(os.fstat(descriptor).st_mode):
+                    raise RuntimeError(f'Opened agent is not a regular file: {destination}')
+                with os.fdopen(descriptor, 'rb', closefd=False) as opened:
+                    if opened.read() != source.read_bytes():
+                        raise RuntimeError(f'Installed agent differs from its package source: {destination}')
+            finally:
+                os.close(descriptor)
         marketplace = project / '.agents/plugins/marketplace.json'
         marketplace.parent.mkdir(parents=True, exist_ok=True)
         marketplace.write_text(json.dumps({'name': 'codex-seo-test', 'plugins': [{'name': 'codex-seo', 'source': {'source': 'local', 'path': './plugins/codex-seo'}, 'policy': {'installation': 'AVAILABLE', 'authentication': 'ON_INSTALL'}, 'category': 'Productivity'}]}))
@@ -75,7 +96,7 @@ def main() -> int:
                 plugin_text = json.dumps(plugins)
                 if 'codex-seo-test' not in plugin_text or 'codex-seo' not in plugin_text:
                     raise RuntimeError('The local plugin marketplace was not discovered.')
-                receipt = {'client': initialized['userAgent'], 'skills': sorted(actual), 'skill_count': len(actual), 'skill_errors': data['errors'], 'linked_agents': len([link for link in links if link['destination'].endswith('.toml')]), 'plugin_marketplace_discovered': True, 'package_copy_outside_upstream_checkout': True, 'model_calls': 0}
+                receipt = {'client': initialized['userAgent'], 'skills': sorted(actual), 'skill_count': len(actual), 'skill_errors': data['errors'], 'regular_agents': len(agent_changes), 'agent_files_opened_with_o_nofollow': bool(nofollow), 'plugin_marketplace_discovered': True, 'package_copy_outside_upstream_checkout': True, 'model_calls': 0}
                 print(json.dumps(receipt, indent=2))
                 if args.receipt:
                     args.receipt.parent.mkdir(parents=True, exist_ok=True)

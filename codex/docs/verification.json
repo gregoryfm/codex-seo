@@ -3,7 +3,7 @@
   "upstream_revision": "6be93f45064ffbadced572b5d5c95f55fd263af0",
   "upstream_version": "2.5.0",
   "unit_tests": {
-    "passed": 22,
+    "passed": 28,
     "command": "python3 -m unittest discover -s codex/tests -v"
   },
   "skill_creator_validation": {
@@ -48,7 +48,8 @@
     ],
     "skill_count": 33,
     "skill_errors": [],
-    "linked_agents": 20,
+    "regular_agents": 20,
+    "agent_files_opened_with_o_nofollow": true,
     "plugin_marketplace_discovered": true,
     "package_copy_outside_upstream_checkout": true,
     "model_calls": 0
@@ -67,10 +68,10 @@
   },
   "not_verified": [
     "Authenticated and paid provider calls",
-    "Actual native-role model execution",
     "Hosted CI",
     "Marketplace publication",
-    "Cross-model design and trail review"
+    "Cross-model design and trail review",
+    "The other 17 agent procedures were registered and passed loader checks but were not individually executed."
   ],
   "runtime_checks": {
     "doctor": {
@@ -115,6 +116,73 @@
   "review_findings": {
     "correctness": "four findings corrected and verified",
     "adversarial": "untracked input and source symlink findings corrected with regression tests",
-    "comments": "four unnecessary or inaccurate comments removed"
+    "comments": "four unnecessary or inaccurate comments removed",
+    "installer": "Late user edits during refresh are detected after atomic backup and restored; regression test passes."
+  },
+  "native_agent_loader": {
+    "client_version": "0.165.0",
+    "discovery_follows_symlinks": true,
+    "execution_requires_regular_files": true,
+    "source_tag": "rust-v0.165.0",
+    "source_commit": "360319d8dee62d87e2d59fc0c21805d79519cfed",
+    "repair": "Keep skill symlinks; install managed regular agent copies with ownership hashes",
+    "regular_files_opened_with_nofollow": 20
+  },
+  "fresh_clone_packaging": {
+    "missing_templates_in_initial_commit": [
+      "skills/seo-cluster/templates/cluster-map.html",
+      "skills/seo-google/assets/templates/cwv-audit-report.md"
+    ],
+    "repair": "Add explicit Codex ignore exceptions and validate ignored generated resources"
+  },
+  "user_installation": {
+    "skills": 33,
+    "skill_scope": "user",
+    "agents": 20,
+    "native_regular_files": 20,
+    "repeat_installation": "53 keep actions",
+    "runtime": {
+      "doctor": {
+        "browser_ready": true,
+        "mode": "override",
+        "plugin_version": "2.5.0",
+        "python_version": "3.14",
+        "ready": true,
+        "reasons": []
+      },
+      "local_html_parse": {
+        "title": "Harbour Plumbing | Sydney",
+        "schema_count": 1
+      },
+      "public_chromium_render": {
+        "status_code": 200,
+        "render_engine": "playwright-chromium",
+        "accessibility_error": null,
+        "accessibility_partial": false
+      },
+      "accessibility_data_present": true,
+      "explicit_schema_validation": {
+        "valid": true,
+        "issues": []
+      }
+    },
+    "native_roles_registered": 20,
+    "native_agents_executed": [
+      {
+        "role": "seo-schema",
+        "status": "completed_with_recovered_shell_error"
+      },
+      {
+        "role": "seo-flow",
+        "status": "completed"
+      },
+      {
+        "role": "seo-content",
+        "status": "completed"
+      }
+    ],
+    "missing_roles": [],
+    "provider_unavailable_test": "Profound unavailable without fabricated metrics",
+    "recovered_test_error": "The schema agent retried a shell capture after zsh rejected the reserved status variable; the final validator exit was 0."
   }
 }

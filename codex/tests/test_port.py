@@ -128,6 +128,16 @@ class PortTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             module.frontmatter('---\nname: ../../escape\ndescription: Example.\n---\n')
 
+    def test_validation_rejects_ignored_generated_resources(self):
+        checkout = self.root / 'checkout'
+        subprocess.run(['git', 'clone', '--shared', '--quiet', str(PACKAGE.parent), str(checkout)], check=True)
+        shutil.copytree(PACKAGE, checkout / 'codex', dirs_exist_ok=True)
+        ignore = checkout / 'codex/.gitignore'
+        ignore.write_text(ignore.read_text() + '\nskills/seo/SKILL.md\n')
+        result = subprocess.run([sys.executable, str(checkout / 'codex/scripts/validate.py')], capture_output=True, text=True)
+        self.assertNotEqual(result.returncode, 0)
+        self.assertIn('Generated resources excluded by Git ignore rules', result.stderr)
+
     def test_refresh_excludes_untracked_notes(self):
         checkout = self.root / 'checkout'
         subprocess.run(['git', 'clone', '--shared', '--quiet', str(PACKAGE.parent), str(checkout)], check=True)

@@ -1,3 +1,6 @@
 __pycache__/
 *.pyc
 .pytest_cache/
+
+!skills/seo-cluster/templates/cluster-map.html
+!skills/seo-google/assets/templates/cwv-audit-report.md

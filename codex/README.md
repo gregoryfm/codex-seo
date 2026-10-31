@@ -6,14 +6,14 @@ The package contains 33 unique skills and 20 native agent procedures. This inclu
 
 ## Install skills and agents
 
-Keep this checkout at a stable path. The installer creates symlinks to it. Preview a project installation, then apply it.
+Keep this checkout at a stable path. Skills are symlinked to it. Agent procedures are installed as regular TOML files because Codex's role loader rejects symlinks. Preview a project installation, then apply it.
 
 ```sh
 python3 ~/Projects/codex-seo/codex/scripts/install.py --project /absolute/path/to/project
 python3 ~/Projects/codex-seo/codex/scripts/install.py --project /absolute/path/to/project --apply
 ```
 
-For user-wide discovery, use `--user` in place of `--project`. User skills go under `~/.agents/skills/`. Agents go under `$CODEX_HOME/agents/` or `~/.codex/agents/`. The installer refuses conflicting paths. It does not edit your project instructions or configuration.
+For user-wide discovery, use `--user` in place of `--project`. User skills go under `~/.agents/skills/`. Agents go under `$CODEX_HOME/agents/` or `~/.codex/agents/`. The installer refuses conflicting paths and records copied agent files in an ownership receipt. It refreshes only copies that still match the last installed version and preserves edited copies. It does not edit your project instructions or configuration.
 
 Restart Codex after installing agent files. Use the name shown in the skill selector. Codex CLI 0.165 qualifies these names with `codex-seo:`. Invoke a skill in a prompt.
 
@@ -37,7 +37,7 @@ python3 ~/Projects/codex-seo/codex/scripts/codex-seo.py setup
 
 Setup requires Python 3.11 through 3.14 and network access. The runtime uses its own environment under `~/.local/share/codex-seo/`. Read [CODEX.md](CODEX.md) for environment overrides and the shared legacy credential and cache paths.
 
-To preview removal of links owned by this checkout, add `--uninstall` to the installation command. Add `--apply` to remove those links. User files and foreign links remain intact. The runtime environment and reports remain on disk.
+To preview removal of links and unchanged agent copies owned by this checkout, add `--uninstall` to the installation command. Add `--apply` to remove them. Edited agent files, user files, and foreign links remain intact. The runtime environment and reports remain on disk.
 
 ## Use as a plugin
 
